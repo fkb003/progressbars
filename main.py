@@ -16,9 +16,6 @@ def display():
     bar.draw()
     glutSwapBuffers()
 
-def animate():
-    glutPostRedisplay()
-
 def keybinds(key, x, y):
     global bar
     step = 1
@@ -30,6 +27,8 @@ def keybinds(key, x, y):
         bar.update(-step)
     if key == b"d":
         bar.update(step)
+    
+    glutPostRedisplay()
 
 def getTitle():
     if len(sys.argv) == 2:
@@ -88,7 +87,6 @@ def main(title):
     glutInitWindowSize(win_w, win_h)
     glutCreateWindow(title)
     glutDisplayFunc(display)
-    glutIdleFunc(animate)
     glutKeyboardFunc(keybinds)
     glMatrixMode(GL_PROJECTION)
     glOrtho(0, win_w, win_h, 0, -1, 1)
