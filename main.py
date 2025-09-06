@@ -1,5 +1,6 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
+import sys
 
 PALETTE = {
     'crashblue': (0.035, 0.031, 0.549)
@@ -25,14 +26,21 @@ def keybinds(key, x, y):
     if key == b"d":
         pass
 
-def main():
+def getTitle():
+    if len(sys.argv) == 2:
+        title = sys.argv[1].encode("utf-8")
+    else:
+        title = b"Progressbar"
+    return title
+
+def main(title):
     global win_w, win_h
     win_w, win_h = 300, 200
     glutInit()
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE)
     glutInitWindowPosition(0, 0)
     glutInitWindowSize(win_w, win_h)
-    glutCreateWindow(b"Progressbar")
+    glutCreateWindow(title)
     glutDisplayFunc(display)
     glutIdleFunc(animate)
     glutKeyboardFunc(keybinds)
@@ -41,4 +49,5 @@ def main():
     glClearColor(*getColor("crashblue"), 1)
     glutMainLoop()
 
-if __name__ == '__main__': main()
+title = getTitle()
+if __name__ == '__main__': main(title)
